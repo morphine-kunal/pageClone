@@ -1,17 +1,21 @@
 import { useState } from "react";
 
 interface AccordionProps {
-    title: string;
-    points: Array<string | { name: string; about: string } | { name: string; about: string }[]>;
-    description?: string;
-    color?: string;
-  }
+  title: string;
+  points: Array<
+    | string
+    | { name: string; about?: string }
+    | { name: string; about?: string }[]
+  >;
+  description?: string;
+  color?: string;
+}
 
 const Accordion: React.FC<AccordionProps> = ({
   title,
   points,
   description,
-  color
+  color,
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -25,7 +29,7 @@ const Accordion: React.FC<AccordionProps> = ({
         <div
           className="flex justify-between pb-8 cursor-pointer fold-bold"
           onClick={toggleAccordion}
-          style={{color: `${color}`}}
+          style={{ color: `${color}` }}
         >
           <p>{title}</p>
           <div>{isOpen ? "˅" : ">"}</div>
@@ -48,7 +52,11 @@ const Accordion: React.FC<AccordionProps> = ({
                     </li>
                   </ul>
                 ) : Array.isArray(point) ? (
-                  <div className={`flex gap-x-6 justify-between ${typeof point[0] === "string" ? "flex-col" : "flex-row"}`}>
+                  <div
+                    className={`flex gap-x-6 justify-between ${
+                      typeof point[0] === "string" ? "flex-col" : "flex-row"
+                    }`}
+                  >
                     <div className="flex">
                       {point.map((subPoint, subIndex) => (
                         <div key={subIndex} className="flex">
