@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 
-const Header: React.FC = ({ show, showAnother }) => {
-  const [showNav, setShowNav] = useState(false);
+interface HeaderProps {
+  show: boolean;
+  showAnother: boolean;
+}
+
+const Header: React.FC<HeaderProps> = ({ show, showAnother }) => {
+  const [showNav, setShowNav] = useState<boolean>(false);
 
   useEffect(() => {
-    const handleScroll = (event: any) => {
+    const handleScroll = (event: WheelEvent) => {
       // Prevent scrolling in the y-direction only when showNav is true
       if (showNav && event.deltaY !== 0) {
         event.preventDefault();
@@ -25,11 +30,12 @@ const Header: React.FC = ({ show, showAnother }) => {
       window.removeEventListener("wheel", handleScroll);
     };
   }, [showNav]);
+
   return (
     <header>
       <nav
         className={`flex justify-between items-center rounded-full p-3 lg:fixed absolute w-[80%] left-[50%] top-[20px] translate-x-[-50%]  z-50 py-4 px-2 ${
-          showNav || show || showAnother === true ? "dark" : "glass"
+          showNav || show || showAnother ? "dark" : "glass"
         }`}
       >
         <div className="logo">
